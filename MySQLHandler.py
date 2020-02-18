@@ -6,9 +6,9 @@ class MySQLHandler:
     def __init__(self, host, database, user, password):
         try:
             self.connection = mysql.connector.connect(host=host,
-                                                 database=database,
-                                                 user=user,
-                                                 password=password)
+                                                      database=database,
+                                                      user=user,
+                                                      password=password)
         except Error as e:
             print("Error while connecting to MySQL", e)
 
@@ -19,7 +19,6 @@ class MySQLHandler:
 
         for x in result:
             print(x)
-        self.connection.close()
 
     def insert(self, sql, val):
         cursor = self.connection.cursor()
@@ -27,4 +26,7 @@ class MySQLHandler:
 
         self.connection.commit()
         cursor.close()
-        self.connection.close()
+
+    def create_table(self, sql):
+        cursor = self.connection.cursor()
+        cursor.execute(sql)
